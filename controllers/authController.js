@@ -75,11 +75,12 @@ export const loginUser = async (req, res) => {
     }
 
     return sendSuccess(res, {
+      code: "OK",
       result: {
         username: existingUser.username,
         role: existingUser.role,
       },
-      message: `Welcome back ${existingUser.username} (${existingUser.role})`,
+      message: "OK",
       statusCode: 200,
       resourceId: existingUser._id,
     });
