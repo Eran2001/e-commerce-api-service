@@ -5,7 +5,6 @@ export const sendSuccess = (
   {
     code = "OK",
     message = "OK",
-    result = null,
     data = null,
     resourceId = null,
     statusCode = 200,
@@ -25,6 +24,7 @@ export const sendError = (
   res,
   {
     code = "ERROR",
+    data = null,
     message = "Something went wrong",
     statusCode = 500,
     resourceId = null,
@@ -32,6 +32,7 @@ export const sendError = (
 ) => {
   return res.status(statusCode).json({
     code,
+    data,
     message,
     requestId: uuidv4(),
     resourceId: resourceId || uuidv4(),

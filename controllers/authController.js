@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
 
 import { sendSuccess, sendError } from "../utils/response.js";
+
 import User from "../models/User.js";
 
+// here is the controller for register user
 export const registerUser = async (req, res) => {
   const { username, password, role } = req.body;
 
@@ -38,7 +40,6 @@ export const registerUser = async (req, res) => {
       resourceId: newUser._id,
     });
   } catch (err) {
-    console.error(err);
     return sendError(res, {
       message: "Server error",
       statusCode: 500,
@@ -46,6 +47,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// here is the controller for login user
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -86,7 +88,6 @@ export const loginUser = async (req, res) => {
       resourceId: existingUser._id,
     });
   } catch (err) {
-    console.error(err);
     return sendError(res, {
       message: "Server error",
       statusCode: 500,
