@@ -2,10 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import connectDB from "./configs/db.js";
+import "module-alias/register.js";
 
-import userRegisterRoutes from "./routes/auth/register/userRegisterRoutes.js";
-import userLoginRoutes from "./routes/auth/login/userLogin.js";
+import connectDB from "@configs/db.js";
+
+import userRegisterRoutes from "@routes/auth/register/userRegisterRoutes.js";
+import userLoginRoutes from "@routes/auth/login/userLogin.js";
 
 dotenv.config();
 

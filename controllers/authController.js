@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 
-import { sendSuccess, sendError } from "../utils/response.js";
-
-import User from "../models/User.js";
+import { sendSuccess, sendError } from "@utils/response.js";
+import User from "@models/User.js";
 
 // here is the controller for register user
 export const registerUser = async (req, res) => {
