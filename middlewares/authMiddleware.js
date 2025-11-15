@@ -1,23 +1,28 @@
 import jwt from "jsonwebtoken";
 
-const secretKey = process.env.JWT_SECRET_KEY;
+import { sendError } from "@utils/response.js";
 
-export const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+export const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-  if (!token) return res.sendStatus(401);
+  if (!authHeader)
+    return sendError(res, {
+      code: "NO_TOKEN",
+      message: "Authorization token missing",
+      statusCode: 401,
+    });
 
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.sendStatus(403);
+  const token = authHeader.split(" ")[1];
 
-    req.user = user;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.user = decoded;
     next();
-  });
-};
-
-export const requireAdmin = (req, res, next) => {
-  if (!req.user || req.user.role !== "admin")
-    return res.status(403).json({ message: "Forbidden" });
-  next();
+  } catch (err) {
+    return sendError(res, {
+      code: "INVALID_TOKEN",
+      message: "Invalid or expired token",
+      statusCode: 401,
+    });
+  }
 };

@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema(
   {
-    userName: { type: String },
+    username: { type: String },
     email: { type: String, required: true, unique: true },
-    password: { type: String },
+    password: { type: String, required: true },
     role: {
       type: String,
       enum: [
@@ -18,16 +18,12 @@ const adminSchema = new mongoose.Schema(
       ],
       required: true,
     },
-    organizationName: { type: String },
-    projectName: { type: String },
+    organizationName: { type: String, required: true },
+    projectName: { type: String, required: true },
     numberOfEmployees: { type: Number },
     departmentName: { type: String },
-    isVerified: { type: Boolean, default: false },
-    verificationToken: { type: String },
   },
   { timestamps: true }
 );
 
-const Admin = mongoose.model("Admin", adminSchema);
-
-export default Admin;
+export default mongoose.model("Admin", adminSchema);
